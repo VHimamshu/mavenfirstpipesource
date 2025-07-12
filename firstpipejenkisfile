@@ -1,0 +1,44 @@
+pipipeline {
+    agent any
+	
+    tools {
+        maven "maven"				
+    }
+    stages {
+        stage('Remove target directory') {
+            steps {
+                
+                sh 'mvn clean target'
+            }
+        }
+
+        stage('Validate Source Code') {
+            steps {
+                
+                sh 'mvn validate'
+            }
+        }
+
+        stage('Unit Testing') {
+            steps {
+                      
+                sh 'mvn test'
+            }
+        }
+
+        stage(Packaging and Compiling') {
+            steps {
+             
+                sh  'mvn package'
+            }
+        }
+
+        stage( Deploy to Artifact Repository') {
+            steps {
+            
+                sh 'mvn deploy'
+            }
+        }
+    }
+}
+
