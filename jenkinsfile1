@@ -1,0 +1,36 @@
+pipeline {
+agent any
+
+     tools {
+        maven 'maven'
+
+       }
+
+     stages {
+         stage ('remove target folder'){
+              steps
+		{
+ 	          sh "mvn clean"
+		}
+	     }
+	  
+	 stage ('unit testing'){
+              steps
+		{
+ 	          sh "mvn test"
+		}
+	     }
+        stage ('create a package'){
+              steps
+		{
+ 	          sh "mvn package"
+		}
+	     }
+	stage ('deploy to artifactory'){
+              steps
+		{
+ 	          sh "mvn deploy"
+		}
+	     }
+	}
+ }
